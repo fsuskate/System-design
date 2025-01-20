@@ -20,6 +20,7 @@ Examples:
 
 Implementation:
 
+```csharp
 // Example: Horizontal Scaling with a Load Balancer in ASP.NET
 public class LoadBalancer
 {
@@ -39,7 +40,9 @@ public class LoadBalancer
         return server;
     }
 }
+```
 
+```csharp
 // Usage
 var loadBalancer = new LoadBalancer();
 loadBalancer.AddServer("Server1");
@@ -47,6 +50,7 @@ loadBalancer.AddServer("Server2");
 
 Console.WriteLine(loadBalancer.GetServer()); // Output: Server1
 Console.WriteLine(loadBalancer.GetServer()); // Output: Server2
+```
 
 Commonly Used Solutions:
 	•	Vertical Scaling: AWS EC2 instance resizing, Azure VM scaling.
@@ -65,6 +69,7 @@ Examples:
 Implementation:
 	•	SQL Server Always On Availability Groups:
 
+```sql
 -- Configuring a secondary replica for failover in SQL Server
 ALTER AVAILABILITY GROUP [MyAG]
 ADD REPLICA ON 'SecondaryServer' 
@@ -73,6 +78,7 @@ WITH (
     FAILOVER_MODE = AUTOMATIC,
     AVAILABILITY_MODE = SYNCHRONOUS_COMMIT
 );
+```
 
 Commonly Used Solutions:
 	•	Database: Amazon RDS Multi-AZ, SQL Server Always On.
@@ -93,7 +99,7 @@ Examples:
 
 Implementation:
 	•	Example: Configuring MongoDB for CP:
-
+```json
 {
   "replicaSet": {
     "name": "rs0",
@@ -104,6 +110,7 @@ Implementation:
     ]
   }
 }
+```
 
 Commonly Used Solutions:
 	•	AP Systems: DynamoDB, Cassandra.
@@ -123,7 +130,7 @@ Examples:
 	•	Bank transfers: Ensuring funds are deducted from one account and added to another.
 
 Implementation:
-
+```csharp
 using (var transaction = connection.BeginTransaction())
 {
     try
@@ -141,6 +148,7 @@ using (var transaction = connection.BeginTransaction())
         transaction.Rollback(); // Revert changes on error
     }
 }
+```
 
 Commonly Used Solutions:
 	•	Relational Databases: PostgreSQL, MySQL, Oracle.
@@ -197,7 +205,7 @@ Examples:
 	•	API limiting: 100 requests per minute per user.
 
 Implementation:
-
+```csharp
 public class RateLimiter
 {
     private int _limit = 100;
@@ -220,6 +228,7 @@ public class RateLimiter
         return false;
     }
 }
+```
 
 Commonly Used Solutions:
 	•	Nginx Rate Limiting.
@@ -233,8 +242,7 @@ Examples:
 Redundant servers in a cluster so that if one server goes down, others take over.
 Automatic retries for failed API calls.
 Implementation:
-csharp
-Copy code
+```csharp
 // Simple retry mechanism for fault tolerance
 public async Task<T> RetryAsync<T>(Func<Task<T>> action, int maxAttempts = 3)
 {
@@ -253,6 +261,7 @@ public async Task<T> RetryAsync<T>(Func<Task<T>> action, int maxAttempts = 3)
     }
     throw new Exception("Max retry attempts exceeded.");
 }
+```
 Commonly Used Solutions:
 Kubernetes for automatic pod restarts.
 Netflix Hystrix for circuit-breaking.
@@ -277,8 +286,7 @@ Offsite backups stored in a different region.
 Active-passive disaster recovery setup with a secondary data center.
 Implementation:
 Automate database backups:
-csharp
-Copy code
+```csharp
 public void BackupDatabase(string databaseName, string backupPath)
 {
     string command = $"BACKUP DATABASE {databaseName} TO DISK = '{backupPath}'";
@@ -289,6 +297,7 @@ public void BackupDatabase(string databaseName, string backupPath)
         sqlCommand.ExecuteNonQuery();
     }
 }
+```
 Commonly Used Solutions:
 AWS Backup, Azure Site Recovery.
 Cross-region replication in AWS or Azure.
@@ -311,8 +320,7 @@ Examples:
 Proxy: Used in corporate environments for web filtering.
 Reverse Proxy: Nginx used for load balancing.
 Implementation:
-nginx
-Copy code
+```json
 # Reverse Proxy Example
 server {
     listen 80;
@@ -321,6 +329,7 @@ server {
         proxy_pass http://backend_server;
     }
 }
+```
 Commonly Used Solutions:
 Proxy: Squid.
 Reverse Proxy: Nginx, HAProxy.
@@ -345,8 +354,8 @@ Examples:
 LRU: Browser cache evicting old pages.
 LFU: Content Delivery Network evicting less popular assets.
 Implementation:
-csharp
-Copy code
+```csharp
+
 // LRU Cache Example in C#
 public class LRUCache<K, V>
 {
@@ -380,6 +389,7 @@ public class LRUCache<K, V>
         _cache[key] = _list.AddFirst((key, value));
     }
 }
+```
 Commonly Used Solutions:
 Redis, Memcached.
 15. Distributed Caching
@@ -402,8 +412,8 @@ Examples:
 Round Robin: Basic load balancing among equal-capacity servers.
 Weighted: Favor servers with higher CPU/RAM capacity.
 Implementation:
-csharp
-Copy code
+```csharp
+
 // Round Robin Load Balancer
 public class RoundRobinLoadBalancer
 {
@@ -426,6 +436,7 @@ var loadBalancer = new RoundRobinLoadBalancer();
 loadBalancer.AddServer("Server1");
 loadBalancer.AddServer("Server2");
 Console.WriteLine(loadBalancer.GetNextServer());
+```
 Commonly Used Solutions:
 Nginx, AWS Elastic Load Balancer, HAProxy.
 17. Database Types (SQL vs NoSQL)
@@ -437,8 +448,8 @@ SQL: Banking systems.
 NoSQL: Social media platforms.
 Implementation:
 SQL Example:
-sql
-Copy code
+```sql
+
 CREATE TABLE Users (ID INT PRIMARY KEY, Name VARCHAR(50));
 NoSQL Example:
 json
@@ -447,6 +458,7 @@ Copy code
   "userID": 1,
   "name": "John Doe"
 }
+```
 Commonly Used Solutions:
 SQL: PostgreSQL, MySQL.
 NoSQL: MongoDB, DynamoDB.
@@ -466,8 +478,8 @@ Horizontal Scaling:
 Pros: Higher fault tolerance, better scalability.
 Cons: Requires additional infrastructure like load balancers.
 Implementation:
-csharp
-Copy code
+```csharp
+
 // Horizontal Scaling with Load Balancer Example
 public class HorizontalScaler
 {
@@ -484,6 +496,7 @@ public class HorizontalScaler
         return server;
     }
 }
+```
 Commonly Used Solutions:
 Vertical: AWS EC2 instance resizing.
 Horizontal: Kubernetes, Docker Swarm.
@@ -502,8 +515,8 @@ Stateless:
 Pros: Easy to scale and maintain.
 Cons: Repeated data transfer may increase overhead.
 Implementation:
-csharp
-Copy code
+```csharp
+
 // Stateless Example: Using JWT Tokens
 public string GenerateJwtToken(string username)
 {
@@ -519,6 +532,7 @@ public string GenerateJwtToken(string username)
 
     return new JwtSecurityTokenHandler().WriteToken(token);
 }
+```
 Commonly Used Solutions:
 Stateless: REST APIs with JWT.
 Stateful: Databases with session tables or Redis for session caching.
@@ -559,13 +573,14 @@ Cons: Increased client-side polling overhead.
 Implementation:
 Push Example (WebSockets): See WebSocket section.
 Pull Example:
-csharp
-Copy code
+```csharp
+
 public async Task<string> FetchUpdates(string url)
 {
     using var client = new HttpClient();
     return await client.GetStringAsync(url);
 }
+```
 Commonly Used Solutions:
 Push: WebSockets, SignalR.
 Pull: HTTP APIs.
@@ -585,8 +600,8 @@ Pros: Low latency, efficient communication.
 Cons: Requires more resources on the server.
 Implementation:
 Long-Polling Example:
-csharp
-Copy code
+```csharp
+
 // Polling client-side example
 while (true)
 {
@@ -594,6 +609,7 @@ while (true)
     Console.WriteLine(response.Content.ReadAsStringAsync());
     await Task.Delay(1000); // Poll every second
 }
+```
 Commonly Used Solutions:
 Long-Polling: HTTP APIs.
 WebSockets: SignalR, Socket.IO.
@@ -613,8 +629,8 @@ Pros: Lightweight and efficient.
 Cons: Tightly coupled services.
 Implementation:
 REST Example:
-csharp
-Copy code
+```csharp
+
 [HttpGet("users/{id}")]
 public async Task<User> GetUser(int id)
 {
@@ -627,6 +643,7 @@ Copy code
 service UserService {
     rpc GetUser (UserRequest) returns (User);
 }
+```
 Commonly Used Solutions:
 REST: HTTP APIs.
 RPC: gRPC, Thrift.
@@ -669,14 +686,15 @@ await Task.Delay(200); // Simulate request processing
 stopwatch.Stop();
 Console.WriteLine($"Latency: {stopwatch.ElapsedMilliseconds} ms");
 C# Example: Throughput Simulation
-csharp
-Copy code
+```csharp
+
 var tasks = Enumerable.Range(1, 100).Select(async _ =>
 {
     await Task.Delay(200); // Simulate processing
 });
 await Task.WhenAll(tasks);
 Console.WriteLine("Throughput: 100 requests processed concurrently");
+```
 Commonly Used Solutions:
 Low-latency systems: Redis, WebSockets.
 High-throughput systems: Kafka, Hadoop.
@@ -696,8 +714,8 @@ Pros: Ensures cache and database consistency.
 Cons: Higher write latency.
 Implementation:
 Read-Through Example:
-csharp
-Copy code
+```csharp
+
 public async Task<string> GetData(string key)
 {
     if (!_cache.TryGetValue(key, out var value))
@@ -707,14 +725,16 @@ public async Task<string> GetData(string key)
     }
     return value;
 }
+```
 Write-Through Example:
-csharp
-Copy code
+```csharp
+
 public async Task SetData(string key, string value)
 {
     _cache.Set(key, value);
     await _database.SetAsync(key, value);
 }
+```
 Commonly Used Solutions:
 Caching: Redis, Memcached.
 Database: SQL Server, MongoDB.
@@ -729,11 +749,12 @@ Pros: Centralized control, simplified client-side logic.
 Cons: Dependency on the server; limited offline capabilities.
 Implementation:
 C# Example: Basic HTTP Client
-csharp
-Copy code
+```csharp
+
 using var client = new HttpClient();
 var response = await client.GetAsync("https://api.example.com");
 Console.WriteLine(await response.Content.ReadAsStringAsync());
+```
 Commonly Used Solutions:
 Web servers: Apache, Nginx.
 Protocols: HTTP, WebSockets.
@@ -748,13 +769,14 @@ Pros: Scalability, fault isolation, technology flexibility.
 Cons: Increased complexity, higher latency due to inter-service communication.
 Implementation:
 Service Communication Example (REST):
-csharp
-Copy code
+```csharp
+
 [HttpGet("products/{id}")]
 public async Task<Product> GetProduct(int id)
 {
     return await _productService.GetByIdAsync(id);
 }
+```
 Commonly Used Solutions:
 Orchestration: Kubernetes, Docker Swarm.
 Service Communication: REST, gRPC.
@@ -770,8 +792,8 @@ Pros: Reduced operational overhead, auto-scaling.
 Cons: Cold start latency, vendor lock-in.
 Implementation:
 AWS Lambda (Example in C#):
-csharp
-Copy code
+```csharp
+
 public class Function
 {
     public string Handler(string input, ILambdaContext context)
@@ -779,6 +801,7 @@ public class Function
         return $"Hello, {input}";
     }
 }
+```
 Commonly Used Solutions:
 AWS Lambda, Azure Functions, Google Cloud Functions.
 37. Event-Driven Architecture
@@ -792,8 +815,8 @@ Pros: Decoupled systems, scalability.
 Cons: Increased complexity in debugging and monitoring.
 Implementation:
 Event Publishing Example:
-csharp
-Copy code
+```csharp
+
 var factory = new ConnectionFactory() { HostName = "localhost" };
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
@@ -804,6 +827,7 @@ var body = Encoding.UTF8.GetBytes(message);
 
 channel.BasicPublish(exchange: "order_events", routingKey: "", body: body);
 Console.WriteLine("Event Published: {0}", message);
+```
 Commonly Used Solutions:
 Kafka, RabbitMQ.
 38. Peer-to-Peer (P2P) Architecture
